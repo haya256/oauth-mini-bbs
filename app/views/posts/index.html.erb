@@ -1,0 +1,24 @@
+<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+  <h1>投稿一覧</h1>
+
+  <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+    <h2 style="margin-top: 0;">新しい投稿</h2>
+    <%= render "form", post: @post %>
+  </div>
+
+  <div>
+    <% if @posts.any? %>
+      <% @posts.each do |post| %>
+        <div style="background: white; padding: 20px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #ddd;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <strong><%= post.user.display_name %></strong>
+            <span style="color: #666; font-size: 14px;"><%= post.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+          </div>
+          <p style="margin: 0; white-space: pre-wrap;"><%= post.body %></p>
+        </div>
+      <% end %>
+    <% else %>
+      <p style="text-align: center; color: #666;">まだ投稿がありません</p>
+    <% end %>
+  </div>
+</div>

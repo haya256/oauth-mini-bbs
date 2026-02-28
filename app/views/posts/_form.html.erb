@@ -1,0 +1,20 @@
+<%= form_with(model: post) do |form| %>
+  <% if post.errors.any? %>
+    <div style="color: red; margin-bottom: 15px;">
+      <h3><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h3>
+      <ul>
+        <% post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div style="margin-bottom: 15px;">
+    <%= form.text_area :body, rows: 4, placeholder: "何か投稿してみましょう...", style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;" %>
+  </div>
+
+  <div>
+    <%= form.submit "投稿する", style: "background: #4285f4; color: white; border: none; padding: 10px 24px; border-radius: 4px; cursor: pointer; font-size: 16px;" %>
+  </div>
+<% end %>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || app_title %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="<%= app_title %>">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <header style="background: #4285f4; color: white; padding: 15px 20px;">
+      <div style="max-width: 800px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+        <h1 style="margin: 0; font-size: 20px;">
+          <%= link_to app_title, root_path, style: "color: white; text-decoration: none;" %>
+        </h1>
+        <% if user_signed_in? %>
+          <div style="display: flex; align-items: center; gap: 15px;">
+            <span><%= current_user.display_name %></span>
+            <%= button_to "ログアウト", sign_out_path, method: :delete, style: "background: transparent; color: white; border: 1px solid white; padding: 5px 15px; border-radius: 4px; cursor: pointer;" %>
+          </div>
+        <% end %>
+      </div>
+    </header>
+
+    <% if notice.present? %>
+      <div style="background: #d4edda; color: #155724; padding: 12px 20px; text-align: center;">
+        <%= notice %>
+      </div>
+    <% end %>
+
+    <% if alert.present? %>
+      <div style="background: #f8d7da; color: #721c24; padding: 12px 20px; text-align: center;">
+        <%= alert %>
+      </div>
+    <% end %>
+
+    <%= yield %>
+  </body>
+</html>
