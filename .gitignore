@@ -7,6 +7,11 @@
 # Ignore macOS metadata files.
 .DS_Store
 
+# Ignore Vim temporary files.
+*.swp
+*.swo
+*~
+
 # Ignore bundler config.
 /.bundle
 
