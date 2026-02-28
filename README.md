@@ -54,6 +54,37 @@ bin/rails server
 4. スコープは **openid のみ** を使用
 5. クライアント ID とシークレットを `.env` に設定
 
+## 本番環境へのデプロイ
+
+### 1. 許可ホストの設定
+
+`config/environments/production.rb` の `config.hosts` を、デプロイ先のドメインに合わせて設定してください。
+
+```ruby
+config.hosts = ["yourdomain.com"]
+```
+
+この設定をしないと、意図しないドメインからのアクセスを許可してしまう可能性があります（DNS Rebinding攻撃への対策）。
+
+### 2. Google OAuth のリダイレクト URI
+
+[Google Cloud Console](https://console.cloud.google.com/apis/credentials) で、本番環境のリダイレクト URI を追加してください。
+
+```
+https://yourdomain.com/auth/google_oauth2/callback
+```
+
+### 3. 環境変数
+
+本番環境に以下の環境変数を設定してください。
+
+| 変数名 | 説明 |
+|---|---|
+| `RAILS_MASTER_KEY` | `config/master.key` の内容 |
+| `GOOGLE_CLIENT_ID` | Google OAuth クライアント ID |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth クライアントシークレット |
+| `APP_TITLE` | アプリのタイトル（任意） |
+
 ## トラブルシューティング
 
 ### PostgreSQL に接続できない
