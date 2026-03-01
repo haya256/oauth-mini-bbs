@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   delete "sign_out", to: "sessions#destroy", as: :sign_out
 
   # Posts
-  resources :posts, only: [:index, :new, :create]
+  resources :posts, only: [ :index, :new, :create ]
 
   # Root
   root "home#index"
